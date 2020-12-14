@@ -1,6 +1,9 @@
 package com.springboot.SattimSatiyorum.entity.product;
 
+import com.springboot.SattimSatiyorum.entity.feature.Feature;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Product")
@@ -22,6 +25,9 @@ public class Product {
 
     @Column(name = "category", insertable = false, updatable = false)
     private String category;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Feature> features;
 
     public Product() {
     }
