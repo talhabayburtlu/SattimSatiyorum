@@ -1,5 +1,6 @@
 package com.springboot.SattimSatiyorum.entity.product;
 
+import com.springboot.SattimSatiyorum.entity.Commercial;
 import com.springboot.SattimSatiyorum.entity.feature.Feature;
 
 import javax.persistence.*;
@@ -29,6 +30,9 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private List<Feature> features;
 
+    @OneToOne(mappedBy = "product")
+    private Commercial commercial;
+
     public Product() {
     }
 
@@ -44,5 +48,13 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Commercial getCommercial() {
+        return commercial;
+    }
+
+    public void setCommercial(Commercial commercial) {
+        this.commercial = commercial;
     }
 }

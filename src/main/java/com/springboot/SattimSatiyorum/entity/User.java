@@ -1,7 +1,10 @@
 package com.springboot.SattimSatiyorum.entity;
 
+import com.springboot.SattimSatiyorum.Package;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -32,6 +35,16 @@ public class User {
 
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    @OneToMany(mappedBy = "seller")
+    private List<Commercial> createdCommercials;
+
+    @OneToMany(mappedBy = "buyer")
+    private List<Commercial> appliedCommercials;
+
+    @ManyToOne()
+    @JoinColumn(name = "package_id")
+    private Package aPackage;
 
     public User() {
 
@@ -109,4 +122,27 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    public List<Commercial> getCreatedCommercials() {
+        return createdCommercials;
+    }
+
+    public void setCreatedCommercials(List<Commercial> createdCommercials) {
+        this.createdCommercials = createdCommercials;
+    }
+
+    public List<Commercial> getAppliedCommercials() {
+        return appliedCommercials;
+    }
+
+    public void setAppliedCommercials(List<Commercial> appliedCommercials) {
+        this.appliedCommercials = appliedCommercials;
+    }
+
+    public Package getaPackage() {
+        return aPackage;
+    }
+
+    public void setaPackage(Package aPackage) {
+        this.aPackage = aPackage;
+    }
 }
