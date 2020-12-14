@@ -50,6 +50,38 @@ public class Product {
         this.id = id;
     }
 
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(List<Feature> features) {
+        this.features = features;
+    }
+
     public Commercial getCommercial() {
         return commercial;
     }
@@ -57,4 +89,6 @@ public class Product {
     public void setCommercial(Commercial commercial) {
         this.commercial = commercial;
     }
+
+
 }

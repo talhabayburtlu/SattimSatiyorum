@@ -62,4 +62,20 @@ public class Feature {
     public void setMultipleChoice(Boolean multipleChoice) {
         isMultipleChoice = multipleChoice;
     }
+
+    public List<FeatureType> getFeatureTypes() {
+        return featureTypes;
+    }
+
+    public void setFeatureTypes(List<FeatureType> featureTypes) {
+        this.featureTypes = featureTypes;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }
