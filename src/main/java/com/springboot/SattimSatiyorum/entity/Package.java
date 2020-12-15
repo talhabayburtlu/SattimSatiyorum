@@ -1,6 +1,4 @@
-package com.springboot.SattimSatiyorum;
-
-import com.springboot.SattimSatiyorum.entity.User;
+package com.springboot.SattimSatiyorum.entity;
 
 import javax.persistence.*;
 import java.util.List;

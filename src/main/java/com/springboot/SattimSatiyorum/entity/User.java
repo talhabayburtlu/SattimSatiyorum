@@ -1,7 +1,5 @@
 package com.springboot.SattimSatiyorum.entity;
 
-import com.springboot.SattimSatiyorum.Package;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
