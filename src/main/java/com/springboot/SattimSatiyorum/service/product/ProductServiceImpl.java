@@ -24,4 +24,12 @@ public abstract class ProductServiceImpl implements ProductService {
         return product;
     }
 
+    public void save(Product product) {
+        productRepository.save(product);
+    }
+
+    public void deleteById(int productId) {
+        productRepository.deleteById(productId);
+    }
+
 }

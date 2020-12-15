@@ -17,13 +17,4 @@ public class ShoppingServiceImpl extends ProductServiceImpl implements ShoppingS
         this.shoppingRepository = shoppingRepository;
     }
 
-    @Override
-    public void save(Product product) {
-
-    }
-
-    @Override
-    public void deleteById(int productId) {
-
-    }
 }

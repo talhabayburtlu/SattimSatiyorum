@@ -17,13 +17,5 @@ public class ResidenceServiceImpl extends ProductServiceImpl implements Residenc
         this.residenceRepository = residenceRepository;
     }
 
-    @Override
-    public void save(Product product) {
 
-    }
-
-    @Override
-    public void deleteById(int productId) {
-
-    }
 }

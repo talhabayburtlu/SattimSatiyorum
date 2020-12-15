@@ -17,13 +17,4 @@ public class VehicleServiceImpl extends ProductServiceImpl implements VehicleSer
         this.vehicleRepository = vehicleRepository;
     }
 
-    @Override
-    public void save(Product product) {
-
-    }
-
-    @Override
-    public void deleteById(int productId) {
-
-    }
 }
