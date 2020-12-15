@@ -1,10 +1,13 @@
 package com.springboot.SattimSatiyorum.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "Package")
+@JsonIgnoreProperties("users")
 public class Package {
 
     @Id
