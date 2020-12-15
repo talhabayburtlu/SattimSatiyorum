@@ -2,6 +2,7 @@ package com.springboot.SattimSatiyorum.rest;
 
 import com.springboot.SattimSatiyorum.entity.Commercial;
 import com.springboot.SattimSatiyorum.service.CommercialService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,6 +11,7 @@ public class CommercialRestController {
 
     private final CommercialService commercialService;
 
+    @Autowired
     public CommercialRestController(CommercialService commercialService) {
         this.commercialService = commercialService;
     }

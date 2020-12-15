@@ -4,7 +4,9 @@ import com.springboot.SattimSatiyorum.dao.product.ProductRepository;
 import com.springboot.SattimSatiyorum.dao.product.VehicleRepository;
 import com.springboot.SattimSatiyorum.entity.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VehicleServiceImpl extends ProductServiceImpl implements VehicleService {
 
     VehicleRepository vehicleRepository;
