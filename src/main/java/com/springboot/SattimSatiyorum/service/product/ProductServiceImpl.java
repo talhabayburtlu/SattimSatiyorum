@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public abstract class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository<Product> productRepository;
 
@@ -16,7 +16,7 @@ public abstract class ProductServiceImpl implements ProductService {
     }
 
     public Product findById(int productId) {
-        Product product = productRepository.findById(productId).get();
+        Product product = productRepository.findById(productId).orElse(null);
 
         if (product == null)
             throw new RuntimeException("Product with id: " + productId + " can't found.");
