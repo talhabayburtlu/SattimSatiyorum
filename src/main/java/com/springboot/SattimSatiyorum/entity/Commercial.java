@@ -41,12 +41,13 @@ public class Commercial {
     public Commercial() {
     }
 
-    public Commercial(Boolean isActive, Boolean isForSale, User seller) {
+    public Commercial(Boolean isActive, Boolean isForSale, User seller, Product product) {
         this.isActive = isActive;
         this.isForSale = isForSale;
         this.createdAt = new Date(System.currentTimeMillis());
         this.updatedAt = new Date(System.currentTimeMillis());
-        this.buyer = seller;
+        this.seller = seller;
+        this.product = product;
     }
 
     public int getId() {
