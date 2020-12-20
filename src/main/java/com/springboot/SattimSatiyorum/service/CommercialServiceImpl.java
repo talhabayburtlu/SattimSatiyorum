@@ -17,7 +17,7 @@ public class CommercialServiceImpl implements CommercialService {
 
     @Override
     public Commercial findById(int commercialId) {
-        Commercial commercial = commercialRepository.findById(commercialId).get();
+        Commercial commercial = commercialRepository.findById(commercialId).orElse(null);
 
         if (commercial == null)
             throw new RuntimeException("Commercial with id: " + commercialId + " can't found.");

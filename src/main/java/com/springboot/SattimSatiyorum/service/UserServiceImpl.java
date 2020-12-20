@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(int userId) {
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId).orElse(null);
 
         if (user == null)
             throw new RuntimeException("User with id: " + userId + " can't found.");

@@ -17,7 +17,7 @@ public class PackageServiceImpl implements PackageService {
 
     @Override
     public Package findById(int packageId) {
-        Package aPackage = packageRepository.findById(packageId).get();
+        Package aPackage = packageRepository.findById(packageId).orElse(null);
 
         if (aPackage == null)
             throw new RuntimeException("Package with id: " + packageId + " can't found.");
