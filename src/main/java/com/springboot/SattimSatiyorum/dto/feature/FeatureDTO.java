@@ -1,11 +1,12 @@
 package com.springboot.SattimSatiyorum.dto.feature;
 
+import java.util.ArrayList;
+
 public class FeatureDTO {
     private int id;
     private String description;
     private Boolean isMultipleChoice;
-    private int[] featureTypeIds;
-    private int[] productIds;
+    private ArrayList<Integer> featureTypeIds;
 
     public int getId() {
         return id;
@@ -31,19 +32,11 @@ public class FeatureDTO {
         isMultipleChoice = multipleChoice;
     }
 
-    public int[] getFeatureTypeIds() {
+    public ArrayList<Integer> getFeatureTypeIds() {
         return featureTypeIds;
     }
 
-    public void setFeatureTypeIds(int[] featureTypeIds) {
+    public void setFeatureTypeIds(ArrayList<Integer> featureTypeIds) {
         this.featureTypeIds = featureTypeIds;
-    }
-
-    public int[] getProductIds() {
-        return productIds;
-    }
-
-    public void setProductIds(int[] productIds) {
-        this.productIds = productIds;
     }
 }
