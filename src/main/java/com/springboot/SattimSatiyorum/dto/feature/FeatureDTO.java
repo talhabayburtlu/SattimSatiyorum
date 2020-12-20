@@ -5,6 +5,7 @@ public class FeatureDTO {
     private String description;
     private Boolean isMultipleChoice;
     private int[] featureTypeIds;
+    private int[] productIds;
 
     public int getId() {
         return id;
@@ -36,5 +37,13 @@ public class FeatureDTO {
 
     public void setFeatureTypeIds(int[] featureTypeIds) {
         this.featureTypeIds = featureTypeIds;
+    }
+
+    public int[] getProductIds() {
+        return productIds;
+    }
+
+    public void setProductIds(int[] productIds) {
+        this.productIds = productIds;
     }
 }
