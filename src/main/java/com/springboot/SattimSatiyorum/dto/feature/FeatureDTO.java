@@ -7,6 +7,7 @@ public class FeatureDTO {
     private String description;
     private Boolean isMultipleChoice;
     private ArrayList<Integer> featureTypeIds;
+    private ArrayList<Integer> categoryIds;
 
     public int getId() {
         return id;
@@ -38,5 +39,13 @@ public class FeatureDTO {
 
     public void setFeatureTypeIds(ArrayList<Integer> featureTypeIds) {
         this.featureTypeIds = featureTypeIds;
+    }
+
+    public ArrayList<Integer> getCategoryIds() {
+        return categoryIds;
+    }
+
+    public void setCategoryIds(ArrayList<Integer> categoryIds) {
+        this.categoryIds = categoryIds;
     }
 }

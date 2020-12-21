@@ -1,6 +1,6 @@
 package com.springboot.SattimSatiyorum.entity.feature;
 
-import com.springboot.SattimSatiyorum.entity.product.Product;
+import com.springboot.SattimSatiyorum.entity.Category;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,11 +25,11 @@ public class Feature {
 
     @ManyToMany()
     @JoinTable(
-            name = "Product_Feature",
+            name = "Category_Features",
             joinColumns = {@JoinColumn(name = "feature_id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id")}
+            inverseJoinColumns = {@JoinColumn(name = "category_id")}
     )
-    private List<Product> products;
+    private List<Category> categories;
 
     public Feature() {
     }
@@ -71,11 +71,11 @@ public class Feature {
         this.featureTypes = featureTypes;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }
