@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+        user.getaPackage().getUsers().add(user);
         userRepository.save(user);
     }
 
