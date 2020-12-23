@@ -2,6 +2,7 @@ package com.springboot.SattimSatiyorum.service;
 
 import com.springboot.SattimSatiyorum.dao.CategoryRepository;
 import com.springboot.SattimSatiyorum.entity.Category;
+import com.springboot.SattimSatiyorum.entity.feature.Feature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +35,12 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteById(int categoryId) {
         categoryRepository.deleteById(categoryId);
     }
+
+    @Override
+    public void createCategoryFeature(Category category, Feature feature) {
+        category.getFeatures().add(feature);
+        feature.getCategories().add(category);
+    }
+
+
 }

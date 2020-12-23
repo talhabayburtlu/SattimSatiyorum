@@ -1,6 +1,7 @@
 package com.springboot.SattimSatiyorum.rest;
 
 import com.springboot.SattimSatiyorum.dto.CategoryDTO;
+import com.springboot.SattimSatiyorum.dto.feature.CategoryFeatureDTO;
 import com.springboot.SattimSatiyorum.entity.Category;
 import com.springboot.SattimSatiyorum.entity.feature.Feature;
 import com.springboot.SattimSatiyorum.entity.product.Product;
@@ -49,6 +50,15 @@ public class CategoryRestController {
         Category category = categoryService.findById(categoryId);
         categoryService.deleteById(categoryId);
 
+        return toDTO(category);
+    }
+
+    @PostMapping("/categories/categoryFeatures")
+    public CategoryDTO createCategoryFeature(@RequestBody CategoryFeatureDTO categoryFeatureDTO) {
+        Category category = categoryService.findById(categoryFeatureDTO.getCategoryId());
+        Feature feature = featureService.findById(categoryFeatureDTO.getFeatureId());
+
+        categoryService.createCategoryFeature(category, feature);
         return toDTO(category);
     }
 
