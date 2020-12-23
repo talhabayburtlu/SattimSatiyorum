@@ -1,8 +1,7 @@
-package com.springboot.SattimSatiyorum.service.product;
+package com.springboot.SattimSatiyorum.service;
 
 import com.springboot.SattimSatiyorum.dao.CategoryRepository;
 import com.springboot.SattimSatiyorum.entity.Category;
-import com.springboot.SattimSatiyorum.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

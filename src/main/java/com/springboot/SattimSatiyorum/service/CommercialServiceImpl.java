@@ -5,6 +5,8 @@ import com.springboot.SattimSatiyorum.entity.Commercial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+
 @Service
 public class CommercialServiceImpl implements CommercialService {
 
@@ -27,6 +29,8 @@ public class CommercialServiceImpl implements CommercialService {
 
     @Override
     public void save(Commercial commercial) {
+        commercial.setCreatedAt(new Date((new java.util.Date().getTime())));
+        commercial.setUpdatedAt(new Date((new java.util.Date().getTime())));
         commercialRepository.save(commercial);
     }
 
