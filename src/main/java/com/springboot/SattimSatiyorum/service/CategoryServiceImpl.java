@@ -40,6 +40,8 @@ public class CategoryServiceImpl implements CategoryService {
     public void createCategoryFeature(Category category, Feature feature) {
         category.getFeatures().add(feature);
         feature.getCategories().add(category);
+
+        categoryRepository.save(category);
     }
 
 
