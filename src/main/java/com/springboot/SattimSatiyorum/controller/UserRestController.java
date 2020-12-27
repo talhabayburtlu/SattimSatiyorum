@@ -1,4 +1,4 @@
-package com.springboot.SattimSatiyorum.rest;
+package com.springboot.SattimSatiyorum.controller;
 
 import com.springboot.SattimSatiyorum.dto.UserDTO;
 import com.springboot.SattimSatiyorum.entity.Commercial;
@@ -58,7 +58,7 @@ public class UserRestController {
                 .map(Commercial::getId)
                 .collect(Collectors.toCollection(ArrayList::new))
                 : new ArrayList<>();
-        ArrayList<Integer> appliedCommercialIds = user.getAppliedCommercials() != null ? user.getCreatedCommercials().stream()
+        ArrayList<Integer> appliedCommercialIds = user.getAppliedCommercials() != null ? user.getAppliedCommercials().stream()
                 .map(Commercial::getId)
                 .collect(Collectors.toCollection(ArrayList::new))
                 : new ArrayList<>();

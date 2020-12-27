@@ -1,11 +1,10 @@
-package com.springboot.SattimSatiyorum.rest.feature;
+package com.springboot.SattimSatiyorum.controller.feature;
 
 import com.springboot.SattimSatiyorum.dto.feature.FeatureDTO;
-import com.springboot.SattimSatiyorum.entity.Category;
 import com.springboot.SattimSatiyorum.entity.feature.Feature;
-import com.springboot.SattimSatiyorum.entity.feature.FeatureType;
+import com.springboot.SattimSatiyorum.entity.feature.FeatureOption;
+import com.springboot.SattimSatiyorum.service.feature.FeatureOptionService;
 import com.springboot.SattimSatiyorum.service.feature.FeatureService;
-import com.springboot.SattimSatiyorum.service.feature.FeatureTypeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +17,13 @@ import java.util.stream.Collectors;
 public class FeatureRestController {
 
     private final FeatureService featureService;
-    private final FeatureTypeService featureTypeService;
+    private final FeatureOptionService featureOptionService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public FeatureRestController(FeatureService featureService, FeatureTypeService featureTypeService) {
+    public FeatureRestController(FeatureService featureService, FeatureOptionService featureOptionService) {
         this.featureService = featureService;
-        this.featureTypeService = featureTypeService;
+        this.featureOptionService = featureOptionService;
         this.modelMapper = new ModelMapper();
     }
 
@@ -53,24 +52,19 @@ public class FeatureRestController {
     }
 
     private FeatureDTO toDTO(Feature feature) {
-        ArrayList<Integer> featureTypeIds = feature.getFeatureTypes()
-                .stream().map(FeatureType::getId).collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<Integer> categoryIds = feature.getCategories()
-                .stream().map(Category::getId).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Integer> featureOptionIds = feature.getFeatureOptions()
+                .stream().map(FeatureOption::getId).collect(Collectors.toCollection(ArrayList::new));
 
         FeatureDTO featureDTO = modelMapper.map(feature, FeatureDTO.class);
-        featureDTO.setFeatureTypeIds(featureTypeIds);
-        featureDTO.setCategoryIds(categoryIds);
+        featureDTO.setFeatureOptionsIds(featureOptionIds);
         return featureDTO;
     }
 
     private Feature toEntity(FeatureDTO featureDTO) {
-        ArrayList<FeatureType> featureTypes = new ArrayList<>();
-        ArrayList<Category> categories = new ArrayList<>();
+        ArrayList<FeatureOption> featureOptions = new ArrayList<>();
 
         Feature feature = modelMapper.map(featureDTO, Feature.class);
-        feature.setFeatureTypes(featureTypes);
-        feature.setCategories(categories);
+        feature.setFeatureOptions(featureOptions);
         return feature;
     }
 

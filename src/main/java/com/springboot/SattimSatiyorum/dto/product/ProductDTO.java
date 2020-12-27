@@ -1,12 +1,14 @@
 package com.springboot.SattimSatiyorum.dto.product;
 
+import java.util.ArrayList;
+
 public class ProductDTO {
     private int id;
     private String header;
     private String description;
     private String type;
     private int commercial_id;
-    private int category_id;
+    private ArrayList<Integer> featureOptionIds;
 
     public int getId() {
         return id;
@@ -48,11 +50,11 @@ public class ProductDTO {
         this.commercial_id = commercial_id;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public ArrayList<Integer> getFeatureOptionIds() {
+        return featureOptionIds;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setFeatureOptionIds(ArrayList<Integer> featureOptionIds) {
+        this.featureOptionIds = featureOptionIds;
     }
 }

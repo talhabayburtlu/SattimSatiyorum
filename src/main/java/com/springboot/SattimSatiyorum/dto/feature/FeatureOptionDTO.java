@@ -1,6 +1,6 @@
 package com.springboot.SattimSatiyorum.dto.feature;
 
-public class FeatureTypeDTO {
+public class FeatureOptionDTO {
     private int id;
     private String type;
     private int featureId;

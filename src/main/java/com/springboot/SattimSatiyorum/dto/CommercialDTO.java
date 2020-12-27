@@ -5,11 +5,12 @@ import java.sql.Date;
 public class CommercialDTO {
     private int id;
     private Boolean isActive;
-    private Boolean isForSale;
     private Date createdAt;
     private Date updatedAt;
-    private int seller_id;
-    private int product_id;
+    private Boolean isUrgent;
+    private Boolean isShowcaseBold;
+    private int sellerId;
+    private int productId;
 
     public int getId() {
         return id;
@@ -25,14 +26,6 @@ public class CommercialDTO {
 
     public void setActive(Boolean active) {
         isActive = active;
-    }
-
-    public Boolean getForSale() {
-        return isForSale;
-    }
-
-    public void setForSale(Boolean forSale) {
-        isForSale = forSale;
     }
 
     public Date getCreatedAt() {
@@ -51,19 +44,35 @@ public class CommercialDTO {
         this.updatedAt = updatedAt;
     }
 
-    public int getSeller_id() {
-        return seller_id;
+    public Boolean getUrgent() {
+        return isUrgent;
     }
 
-    public void setSeller_id(int seller_id) {
-        this.seller_id = seller_id;
+    public void setUrgent(Boolean urgent) {
+        isUrgent = urgent;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public Boolean getShowcaseBold() {
+        return isShowcaseBold;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setShowcaseBold(Boolean showcaseBold) {
+        isShowcaseBold = showcaseBold;
+    }
+
+    public int getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 }

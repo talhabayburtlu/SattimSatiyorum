@@ -1,26 +1,29 @@
-package com.springboot.SattimSatiyorum.rest.product;
+package com.springboot.SattimSatiyorum.controller.product;
 
 import com.springboot.SattimSatiyorum.dto.product.ResidenceDTO;
-import com.springboot.SattimSatiyorum.entity.Category;
+import com.springboot.SattimSatiyorum.entity.feature.FeatureOption;
 import com.springboot.SattimSatiyorum.entity.product.Residence;
-import com.springboot.SattimSatiyorum.service.CategoryService;
+import com.springboot.SattimSatiyorum.service.feature.FeatureOptionService;
 import com.springboot.SattimSatiyorum.service.product.ResidenceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
 public class ResidenceRestController {
 
     private final ResidenceService residenceService;
-    private final CategoryService categoryService;
+    private final FeatureOptionService featureOptionService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public ResidenceRestController(ResidenceService residenceService, CategoryService categoryService) {
+    public ResidenceRestController(ResidenceService residenceService, FeatureOptionService featureOptionService) {
         this.residenceService = residenceService;
-        this.categoryService = categoryService;
+        this.featureOptionService = featureOptionService;
         this.modelMapper = new ModelMapper();
     }
 
@@ -46,18 +49,22 @@ public class ResidenceRestController {
     }
 
     private ResidenceDTO toDTO(Residence residence) {
-        int category_id = residence.getCategory().getId();
-
+        ArrayList<Integer> featureOptions = residence.getFeatureOptions()
+                .stream()
+                .map(FeatureOption::getId)
+                .collect(Collectors.toCollection(ArrayList::new));
         ResidenceDTO residenceDTO = modelMapper.map(residence, ResidenceDTO.class);
-        residenceDTO.setCategory_id(category_id);
+        residenceDTO.setFeatureOptionIds(featureOptions);
         return residenceDTO;
     }
 
     private Residence toEntity(ResidenceDTO residenceDTO) {
-        Category category = categoryService.findById(residenceDTO.getCategory_id());
-
+        ArrayList<FeatureOption> featureOptions = residenceDTO.getFeatureOptionIds()
+                .stream()
+                .map(featureOptionService::findById)
+                .collect(Collectors.toCollection(ArrayList::new));
         Residence residence = modelMapper.map(residenceDTO, Residence.class);
-        residence.setCategory(category);
+        residence.setFeatureOptions(featureOptions);
         return residence;
     }
 }

@@ -1,7 +1,5 @@
 package com.springboot.SattimSatiyorum.entity.feature;
 
-import com.springboot.SattimSatiyorum.entity.Category;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -21,15 +19,7 @@ public class Feature {
     private Boolean isMultipleChoice;
 
     @OneToMany(mappedBy = "feature")
-    private List<FeatureType> featureTypes;
-
-    @ManyToMany()
-    @JoinTable(
-            name = "Category_Features",
-            joinColumns = {@JoinColumn(name = "feature_id")},
-            inverseJoinColumns = {@JoinColumn(name = "category_id")}
-    )
-    private List<Category> categories;
+    private List<FeatureOption> featureOptions;
 
     public Feature() {
     }
@@ -63,19 +53,21 @@ public class Feature {
         isMultipleChoice = multipleChoice;
     }
 
-    public List<FeatureType> getFeatureTypes() {
-        return featureTypes;
+    public List<FeatureOption> getFeatureTypes() {
+        return featureOptions;
     }
 
-    public void setFeatureTypes(List<FeatureType> featureTypes) {
-        this.featureTypes = featureTypes;
+    public void setFeatureTypes(List<FeatureOption> featureOptions) {
+        this.featureOptions = featureOptions;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public List<FeatureOption> getFeatureOptions() {
+        return featureOptions;
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setFeatureOptions(List<FeatureOption> featureOptions) {
+        this.featureOptions = featureOptions;
     }
+
+
 }

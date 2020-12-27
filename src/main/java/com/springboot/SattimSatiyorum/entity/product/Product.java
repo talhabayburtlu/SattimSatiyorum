@@ -1,9 +1,10 @@
 package com.springboot.SattimSatiyorum.entity.product;
 
-import com.springboot.SattimSatiyorum.entity.Category;
 import com.springboot.SattimSatiyorum.entity.Commercial;
+import com.springboot.SattimSatiyorum.entity.feature.FeatureOption;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Product")
@@ -29,9 +30,12 @@ public class Product {
     @OneToOne(mappedBy = "product")
     private Commercial commercial;
 
-    @ManyToOne()
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    @ManyToMany()
+    @JoinTable(
+            name = "Product_Feature_Options",
+            joinColumns = {@JoinColumn(name = "product_id")},
+            inverseJoinColumns = {@JoinColumn(name = "feature_option_id")})
+    private List<FeatureOption> featureOptions;
 
     public Product() {
     }
@@ -82,11 +86,13 @@ public class Product {
         this.commercial = commercial;
     }
 
-    public Category getCategory() {
-        return category;
+    public List<FeatureOption> getFeatureOptions() {
+        return featureOptions;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setFeatureOptions(List<FeatureOption> featureOptions) {
+        this.featureOptions = featureOptions;
     }
 }
+
+

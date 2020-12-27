@@ -1,24 +1,29 @@
-package com.springboot.SattimSatiyorum.rest.product;
+package com.springboot.SattimSatiyorum.controller.product;
 
 import com.springboot.SattimSatiyorum.dto.product.ShoppingDTO;
-import com.springboot.SattimSatiyorum.entity.Category;
+import com.springboot.SattimSatiyorum.entity.feature.FeatureOption;
 import com.springboot.SattimSatiyorum.entity.product.Shopping;
-import com.springboot.SattimSatiyorum.service.CategoryService;
+import com.springboot.SattimSatiyorum.service.feature.FeatureOptionService;
 import com.springboot.SattimSatiyorum.service.product.ShoppingService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/api")
 public class ShoppingRestController {
 
     private final ShoppingService shoppingService;
-    private final CategoryService categoryService;
+    private final FeatureOptionService featureOptionService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public ShoppingRestController(ShoppingService shoppingService, CategoryService categoryService) {
+    public ShoppingRestController(ShoppingService shoppingService, FeatureOptionService featureOptionService) {
         this.shoppingService = shoppingService;
-        this.categoryService = categoryService;
+        this.featureOptionService = featureOptionService;
         this.modelMapper = new ModelMapper();
     }
 
@@ -44,18 +49,22 @@ public class ShoppingRestController {
     }
 
     private ShoppingDTO toDTO(Shopping shopping) {
-        int category_id = shopping.getCategory().getId();
-
+        ArrayList<Integer> featureOptions = shopping.getFeatureOptions()
+                .stream()
+                .map(FeatureOption::getId)
+                .collect(Collectors.toCollection(ArrayList::new));
         ShoppingDTO shoppingDTO = modelMapper.map(shopping, ShoppingDTO.class);
-        shoppingDTO.setCategory_id(category_id);
+        shoppingDTO.setFeatureOptionIds(featureOptions);
         return shoppingDTO;
     }
 
     private Shopping toEntity(ShoppingDTO shoppingDTO) {
-        Category category = categoryService.findById(shoppingDTO.getCategory_id());
-
+        ArrayList<FeatureOption> featureOptions = shoppingDTO.getFeatureOptionIds()
+                .stream()
+                .map(featureOptionService::findById)
+                .collect(Collectors.toCollection(ArrayList::new));
         Shopping shopping = modelMapper.map(shoppingDTO, Shopping.class);
-        shopping.setCategory(category);
+        shopping.setFeatureOptions(featureOptions);
         return shopping;
     }
 }

@@ -1,4 +1,4 @@
-package com.springboot.SattimSatiyorum.rest;
+package com.springboot.SattimSatiyorum.controller;
 
 import com.springboot.SattimSatiyorum.entity.Package;
 import com.springboot.SattimSatiyorum.service.PackageService;
@@ -21,9 +21,7 @@ public class PackageRestController {
 
     @GetMapping("/packages/{packageId}")
     public Package getPackage(@PathVariable int packageId) {
-        Package aPackage = packageService.findById(packageId); // throws error if does not exist
-
-        return aPackage;
+        return packageService.findById(packageId); // throws error if does not exist;
     }
     
 }

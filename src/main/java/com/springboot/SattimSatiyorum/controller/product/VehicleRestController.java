@@ -1,24 +1,29 @@
-package com.springboot.SattimSatiyorum.rest.product;
+package com.springboot.SattimSatiyorum.controller.product;
 
 import com.springboot.SattimSatiyorum.dto.product.VehicleDTO;
-import com.springboot.SattimSatiyorum.entity.Category;
+import com.springboot.SattimSatiyorum.entity.feature.FeatureOption;
 import com.springboot.SattimSatiyorum.entity.product.Vehicle;
-import com.springboot.SattimSatiyorum.service.CategoryService;
+import com.springboot.SattimSatiyorum.service.feature.FeatureOptionService;
 import com.springboot.SattimSatiyorum.service.product.VehicleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/api")
 public class VehicleRestController {
 
     private final VehicleService vehicleService;
-    private final CategoryService categoryService;
+    private final FeatureOptionService featureOptionService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public VehicleRestController(VehicleService vehicleService, CategoryService categoryService) {
+    public VehicleRestController(VehicleService vehicleService, FeatureOptionService featureOptionService) {
         this.vehicleService = vehicleService;
-        this.categoryService = categoryService;
+        this.featureOptionService = featureOptionService;
         this.modelMapper = new ModelMapper();
     }
 
@@ -44,18 +49,22 @@ public class VehicleRestController {
     }
 
     private VehicleDTO toDTO(Vehicle vehicle) {
-        int category_id = vehicle.getCategory().getId();
-
+        ArrayList<Integer> featureOptions = vehicle.getFeatureOptions()
+                .stream()
+                .map(FeatureOption::getId)
+                .collect(Collectors.toCollection(ArrayList::new));
         VehicleDTO vehicleDTO = modelMapper.map(vehicle, VehicleDTO.class);
-        vehicleDTO.setCategory_id(category_id);
+        vehicleDTO.setFeatureOptionIds(featureOptions);
         return vehicleDTO;
     }
 
     private Vehicle toEntity(VehicleDTO vehicleDTO) {
-        Category category = categoryService.findById(vehicleDTO.getCategory_id());
-
+        ArrayList<FeatureOption> featureOptions = vehicleDTO.getFeatureOptionIds()
+                .stream()
+                .map(featureOptionService::findById)
+                .collect(Collectors.toCollection(ArrayList::new));
         Vehicle vehicle = modelMapper.map(vehicleDTO, Vehicle.class);
-        vehicle.setCategory(category);
+        vehicle.setFeatureOptions(featureOptions);
         return vehicle;
     }
 }

@@ -17,14 +17,17 @@ public class Commercial {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @Column(name = "is_for_sale")
-    private Boolean isForSale;
-
     @Column(name = "created_at")
     private Date createdAt;
 
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    @Column(name = "is_urgent")
+    private Boolean isUrgent;
+
+    @Column(name = "is_showcase_bold")
+    private Boolean isShowcaseBold;
 
     @ManyToOne()
     @JoinColumn(name = "seller_id")
@@ -43,7 +46,6 @@ public class Commercial {
 
     public Commercial(Boolean isActive, Boolean isForSale, User seller, Product product) {
         this.isActive = isActive;
-        this.isForSale = isForSale;
         this.createdAt = new Date(System.currentTimeMillis());
         this.updatedAt = new Date(System.currentTimeMillis());
         this.seller = seller;
@@ -66,14 +68,6 @@ public class Commercial {
         isActive = active;
     }
 
-    public Boolean getForSale() {
-        return isForSale;
-    }
-
-    public void setForSale(Boolean forSale) {
-        isForSale = forSale;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -88,6 +82,22 @@ public class Commercial {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Boolean getUrgent() {
+        return isUrgent;
+    }
+
+    public void setUrgent(Boolean urgent) {
+        isUrgent = urgent;
+    }
+
+    public Boolean getShowcaseBold() {
+        return isShowcaseBold;
+    }
+
+    public void setShowcaseBold(Boolean showcaseBold) {
+        isShowcaseBold = showcaseBold;
     }
 
     public User getSeller() {

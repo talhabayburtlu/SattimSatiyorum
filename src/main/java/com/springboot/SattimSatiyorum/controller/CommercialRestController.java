@@ -1,4 +1,4 @@
-package com.springboot.SattimSatiyorum.rest;
+package com.springboot.SattimSatiyorum.controller;
 
 import com.springboot.SattimSatiyorum.dto.CommercialDTO;
 import com.springboot.SattimSatiyorum.entity.Commercial;
@@ -11,6 +11,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -53,9 +56,15 @@ public class CommercialRestController {
         return toDTO(commercial);
     }
 
+    @GetMapping("/commercials/active/{page}")
+    public ArrayList<CommercialDTO> getAllActiveCommercials(@PathVariable int page) {
+        ArrayList<Commercial> commercials = commercialService.findAllActiveCommercials(page);
+        return toDTOList(commercials);
+    }
+
     private Commercial toEntity(CommercialDTO commercialDTO) {
-        User seller = userService.findById(commercialDTO.getSeller_id());
-        Product product = productService.findById(commercialDTO.getProduct_id());
+        User seller = userService.findById(commercialDTO.getSellerId());
+        Product product = productService.findById(commercialDTO.getProductId());
 
         Commercial commercial = modelMapper.map(commercialDTO, Commercial.class);
         commercial.setSeller(seller);
@@ -68,9 +77,12 @@ public class CommercialRestController {
         int productId = commercial.getProduct().getId();
 
         CommercialDTO commercialDTO = modelMapper.map(commercial, CommercialDTO.class);
-        commercialDTO.setSeller_id(sellerId);
-        commercialDTO.setProduct_id(productId);
+        commercialDTO.setSellerId(sellerId);
+        commercialDTO.setProductId(productId);
         return commercialDTO;
     }
 
+    private ArrayList<CommercialDTO> toDTOList(ArrayList<Commercial> commercials) {
+        return commercials.stream().map(this::toDTO).collect(Collectors.toCollection(ArrayList::new));
+    }
 }
