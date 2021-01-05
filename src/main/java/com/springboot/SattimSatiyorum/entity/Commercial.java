@@ -29,6 +29,9 @@ public class Commercial {
     @Column(name = "is_showcase_bold")
     private Boolean isShowcaseBold;
 
+    @Column(name = "price")
+    private double price;
+
     @ManyToOne()
     @JoinColumn(name = "seller_id")
     private User seller;
@@ -98,6 +101,14 @@ public class Commercial {
 
     public void setShowcaseBold(Boolean showcaseBold) {
         isShowcaseBold = showcaseBold;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public User getSeller() {

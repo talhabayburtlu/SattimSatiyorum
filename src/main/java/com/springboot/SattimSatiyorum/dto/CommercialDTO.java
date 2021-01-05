@@ -9,6 +9,7 @@ public class CommercialDTO {
     private Date updatedAt;
     private Boolean isUrgent;
     private Boolean isShowcaseBold;
+    private double price;
     private int sellerId;
     private int productId;
 
@@ -58,6 +59,14 @@ public class CommercialDTO {
 
     public void setShowcaseBold(Boolean showcaseBold) {
         isShowcaseBold = showcaseBold;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public int getSellerId() {

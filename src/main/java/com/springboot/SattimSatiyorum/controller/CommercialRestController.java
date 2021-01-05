@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -56,9 +57,38 @@ public class CommercialRestController {
         return toDTO(commercial);
     }
 
-    @GetMapping("/commercials/active/{page}")
-    public ArrayList<CommercialDTO> getAllActiveCommercials(@PathVariable int page) {
-        ArrayList<Commercial> commercials = commercialService.findAllActiveCommercials(page);
+    @GetMapping("/commercials")
+    public ArrayList<CommercialDTO> getActiveCommercials(@RequestParam(defaultValue = "1") int page,
+                                                         @RequestParam(value = "to") ArrayList<Integer> featureOptionIds) {
+        ArrayList<Commercial> commercials = commercialService.findActiveCommercials(page);
+        return toDTOList(commercials);
+    }
+
+    @GetMapping("/commercials/foi/")
+    public ArrayList<CommercialDTO> getActiveCommercialsByFeatureOptionsIds
+            (@RequestParam(defaultValue = "1") int page, @RequestParam(value = "to") ArrayList<Integer> featureOptionIds) {
+        ArrayList<Commercial> commercials = commercialService.findActiveCommercialsByFeatureOptionIds(page, featureOptionIds);
+        return toDTOList(commercials);
+    }
+
+    @GetMapping("/commercials/date")
+    public ArrayList<CommercialDTO> getActiveCommercialsByDate
+            (@RequestParam(defaultValue = "1") int page, @RequestParam(value = "date") Date date) {
+        ArrayList<Commercial> commercials = commercialService.findActiveCommercialsByDate(page, date);
+        return toDTOList(commercials);
+    }
+
+    @GetMapping("/commercials/price")
+    public ArrayList<CommercialDTO> getActiveCommercialsByDate
+            (@RequestParam(defaultValue = "1") int page, @RequestParam(value = "min") int min, @RequestParam(value = "max") int max) {
+        ArrayList<Commercial> commercials = commercialService.findActiveCommercialsByPrice(page, min, max);
+        return toDTOList(commercials);
+    }
+
+    @GetMapping("/commercials/urgent")
+    public ArrayList<CommercialDTO> getActiveCommercialsByDate
+            (@RequestParam(defaultValue = "1") int page) {
+        ArrayList<Commercial> commercials = commercialService.findActiveCommercialsByIsUrgent(page);
         return toDTOList(commercials);
     }
 
