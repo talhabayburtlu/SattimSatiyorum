@@ -79,14 +79,14 @@ public class CommercialRestController {
     }
 
     @GetMapping("/commercials/price")
-    public ArrayList<CommercialDTO> getActiveCommercialsByDate
+    public ArrayList<CommercialDTO> getActiveCommercialsByPrice
             (@RequestParam(defaultValue = "1") int page, @RequestParam(value = "min") int min, @RequestParam(value = "max") int max) {
         ArrayList<Commercial> commercials = commercialService.findActiveCommercialsByPrice(page, min, max);
         return toDTOList(commercials);
     }
 
     @GetMapping("/commercials/urgent")
-    public ArrayList<CommercialDTO> getActiveCommercialsByDate
+    public ArrayList<CommercialDTO> getActiveCommercialsByIsUrgent
             (@RequestParam(defaultValue = "1") int page) {
         ArrayList<Commercial> commercials = commercialService.findActiveCommercialsByIsUrgent(page);
         return toDTOList(commercials);

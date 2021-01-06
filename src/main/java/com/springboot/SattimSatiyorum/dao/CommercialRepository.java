@@ -31,7 +31,7 @@ public interface CommercialRepository extends JpaRepository<Commercial, Integer>
     @Transactional
     @Query(value = "SELECT c.* " +
             "FROM Commercial c " +
-            "WHERE c.createdAt >= :untilDate " +
+            "WHERE c.created_at >= :untilDate " +
             "GROUP BY c.id " +
             "LIMIT :start,:end ", nativeQuery = true)
     List<Commercial> findCommercialsByDate(@Param("start") int start, @Param("end") int end, @Param("untilDate") Date date);
