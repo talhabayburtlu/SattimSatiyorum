@@ -57,6 +57,25 @@ public class CommercialRestController {
         return toDTO(commercial);
     }
 
+    @GetMapping("/commercials/sold/{userId}")
+    public ArrayList<CommercialDTO> getSoldCommercialsByActiveFromSeller
+            (@RequestParam(defaultValue = "1") int page, @RequestParam(value = "active") Boolean active, @PathVariable int userId) {
+        ArrayList<Commercial> commercials;
+        if (active)
+            commercials = commercialService.findSoldCommercialsByActiveFromSeller(page, userId);
+        else
+            commercials = commercialService.findSoldCommercialsByNotActiveFromSeller(page, userId);
+        return toDTOList(commercials);
+    }
+
+    @GetMapping("/commercials/bought/{userId}")
+    public ArrayList<CommercialDTO> getSoldCommercialsByActiveFromSeller
+            (@RequestParam(defaultValue = "1") int page, @PathVariable int userId) {
+        ArrayList<Commercial> commercials = commercialService.findBoughtCommercialsFromBuyer(page, userId);
+        return toDTOList(commercials);
+    }
+
+
     @GetMapping("/commercials")
     public ArrayList<CommercialDTO> getActiveCommercials(@RequestParam(defaultValue = "1") int page,
                                                          @RequestParam(value = "to") ArrayList<Integer> featureOptionIds) {

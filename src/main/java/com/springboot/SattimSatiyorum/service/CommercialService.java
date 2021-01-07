@@ -13,6 +13,12 @@ public interface CommercialService {
 
     void deleteById(int commercialId);
 
+    ArrayList<Commercial> findSoldCommercialsByActiveFromSeller(int page, int userId);
+
+    ArrayList<Commercial> findSoldCommercialsByNotActiveFromSeller(int page, int userId);
+
+    ArrayList<Commercial> findBoughtCommercialsFromBuyer(int page, int userId);
+
     ArrayList<Commercial> findActiveCommercials(int page);
 
     ArrayList<Commercial> findActiveCommercialsByFeatureOptionIds(int page, ArrayList<Integer> featureOptionIds);

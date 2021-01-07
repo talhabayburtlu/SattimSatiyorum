@@ -24,4 +24,9 @@ public class PackageServiceImpl implements PackageService {
 
         return aPackage;
     }
+
+    @Override
+    public Package findPackageOfUser(int userId) {
+        return packageRepository.findPackageOfUser(userId);
+    }
 }

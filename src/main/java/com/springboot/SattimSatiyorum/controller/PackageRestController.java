@@ -23,5 +23,10 @@ public class PackageRestController {
     public Package getPackage(@PathVariable int packageId) {
         return packageService.findById(packageId); // throws error if does not exist;
     }
-    
+
+    @GetMapping("packages/user/{userId}")
+    public Package getPackageOfUser(@PathVariable int userId) {
+        return packageService.findPackageOfUser(userId);
+    }
+
 }

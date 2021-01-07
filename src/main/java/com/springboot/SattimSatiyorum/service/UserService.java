@@ -1,5 +1,6 @@
 package com.springboot.SattimSatiyorum.service;
 
+
 import com.springboot.SattimSatiyorum.entity.User;
 
 public interface UserService {
@@ -10,4 +11,5 @@ public interface UserService {
 
     void deleteById(int userId);
 
+    User findUserWithUniques(String mail, String phoneNumber);
 }

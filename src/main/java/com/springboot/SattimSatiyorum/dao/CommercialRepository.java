@@ -13,6 +13,31 @@ public interface CommercialRepository extends JpaRepository<Commercial, Integer>
 
     @Transactional
     @Query(value = "SELECT c.* " +
+            "FROM User u inner join Commercial C on u.id = C.seller_id " +
+            "WHERE u.id = :id AND c.is_active = 1 " +
+            "ORDER BY c.id " +
+            "LIMIT :start,:end ", nativeQuery = true)
+    List<Commercial> findSoldCommercialsByActiveFromSeller(@Param("start") int start, @Param("end") int end, @Param("id") int id);
+
+    @Transactional
+    @Query(value = "SELECT c.* " +
+            "FROM User u inner join Commercial C on u.id = C.seller_id " +
+            "WHERE u.id = :id AND c.is_active = 0 " +
+            "ORDER BY c.id " +
+            "LIMIT :start,:end ", nativeQuery = true)
+    List<Commercial> findSoldCommercialsByNotActiveFromSeller(@Param("start") int start, @Param("end") int end, @Param("id") int id);
+
+
+    @Transactional
+    @Query(value = "SELECT c.* " +
+            "FROM User u inner join Commercial C on u.id = C.buyer_id " +
+            "WHERE u.id = :id AND c.is_active = 0 " +
+            "ORDER BY c.id " +
+            "LIMIT :start,:end ", nativeQuery = true)
+    List<Commercial> findBoughtCommercialsFromBuyer(@Param("start") int start, @Param("end") int end, @Param("id") int id);
+
+    @Transactional
+    @Query(value = "SELECT c.* " +
             "FROM Commercial c inner join Product p on c.product_id=p.id " +
             "WHERE is_active=1 " +
             "ORDER BY c.id " +
@@ -51,4 +76,6 @@ public interface CommercialRepository extends JpaRepository<Commercial, Integer>
             "GROUP BY c.id " +
             "LIMIT :start,:end ", nativeQuery = true)
     List<Commercial> findCommercialsByIsUrgent(@Param("start") int start, @Param("end") int end);
+
+
 }

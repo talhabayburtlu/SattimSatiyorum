@@ -7,4 +7,5 @@ public interface PackageService {
 
     Package findById(int packageId);
 
+    Package findPackageOfUser(int userId);
 }

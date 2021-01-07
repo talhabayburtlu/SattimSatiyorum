@@ -41,6 +41,27 @@ public class CommercialServiceImpl implements CommercialService {
     }
 
     @Override
+    public ArrayList<Commercial> findSoldCommercialsByActiveFromSeller(int page, int userId) {
+        int perPage = 5;
+        page = Math.max(page, 1);
+        return (ArrayList<Commercial>) commercialRepository.findSoldCommercialsByActiveFromSeller(perPage * page - perPage, perPage * page, userId);
+    }
+
+    @Override
+    public ArrayList<Commercial> findSoldCommercialsByNotActiveFromSeller(int page, int userId) {
+        int perPage = 5;
+        page = Math.max(page, 1);
+        return (ArrayList<Commercial>) commercialRepository.findSoldCommercialsByNotActiveFromSeller(perPage * page - perPage, perPage * page, userId);
+    }
+
+    @Override
+    public ArrayList<Commercial> findBoughtCommercialsFromBuyer(int page, int userId) {
+        int perPage = 5;
+        page = Math.max(page, 1);
+        return (ArrayList<Commercial>) commercialRepository.findBoughtCommercialsFromBuyer(perPage * page - perPage, perPage * page, userId);
+    }
+
+    @Override
     public ArrayList<Commercial> findActiveCommercials(int page) {
         int perPage = 5;
         page = Math.max(page, 1);

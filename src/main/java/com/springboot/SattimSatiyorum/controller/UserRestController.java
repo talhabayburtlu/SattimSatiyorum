@@ -53,6 +53,15 @@ public class UserRestController {
         return toDTO(user);
     }
 
+    @GetMapping("/users/")
+    public UserDTO getUserByUniques(@RequestParam(value = "mail", required = false) String mail,
+                                    @RequestParam(value = "phoneNumber", required = false) String phoneNumber) {
+        if (mail == null && phoneNumber == null)
+            return null;
+        else
+            return toDTO(userService.findUserWithUniques(mail, phoneNumber));
+    }
+
     private UserDTO toDTO(User user) {
         ArrayList<Integer> createdCommercialIds = user.getCreatedCommercials() != null ? user.getCreatedCommercials().stream()
                 .map(Commercial::getId)
