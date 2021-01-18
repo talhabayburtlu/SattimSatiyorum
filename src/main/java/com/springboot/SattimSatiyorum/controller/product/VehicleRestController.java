@@ -2,6 +2,7 @@ package com.springboot.SattimSatiyorum.controller.product;
 
 import com.springboot.SattimSatiyorum.dto.product.VehicleDTO;
 import com.springboot.SattimSatiyorum.entity.feature.FeatureOption;
+import com.springboot.SattimSatiyorum.entity.product.Product;
 import com.springboot.SattimSatiyorum.entity.product.Vehicle;
 import com.springboot.SattimSatiyorum.service.feature.FeatureOptionService;
 import com.springboot.SattimSatiyorum.service.product.VehicleService;
@@ -48,6 +49,12 @@ public class VehicleRestController {
         return toDTO(vehicle);
     }
 
+    @GetMapping("/vehicles")
+    public ArrayList<VehicleDTO> getResidenceByHeader(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "") String subHeader) {
+        ArrayList<Product> products = vehicleService.findProductByHeader(page, "Shopping", subHeader);
+        return toDTOList(products.stream().map(p -> (Vehicle) p).collect(Collectors.toCollection(ArrayList::new)));
+    }
+
     private VehicleDTO toDTO(Vehicle vehicle) {
         ArrayList<Integer> featureOptions = vehicle.getFeatureOptions()
                 .stream()
@@ -67,4 +74,9 @@ public class VehicleRestController {
         vehicle.setFeatureOptions(featureOptions);
         return vehicle;
     }
+
+    private ArrayList<VehicleDTO> toDTOList(ArrayList<Vehicle> vehicles) {
+        return vehicles.stream().map(this::toDTO).collect(Collectors.toCollection(ArrayList::new));
+    }
+
 }

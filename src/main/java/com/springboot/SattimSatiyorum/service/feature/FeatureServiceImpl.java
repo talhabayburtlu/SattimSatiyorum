@@ -34,4 +34,9 @@ public class FeatureServiceImpl implements FeatureService {
     public void deleteById(int featureId) {
         featureRepository.deleteById(featureId);
     }
+
+    @Override
+    public Feature findFeatureFromFeatureOption(int featureOptionId) {
+        return featureRepository.findFeatureFromFeatureOption(featureOptionId);
+    }
 }

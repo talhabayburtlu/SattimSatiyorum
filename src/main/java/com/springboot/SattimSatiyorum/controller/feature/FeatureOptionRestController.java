@@ -10,6 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api")
 public class FeatureOptionRestController {
@@ -48,6 +51,16 @@ public class FeatureOptionRestController {
         return toDTO(featureOption);
     }
 
+    @GetMapping("/featureOptions/products/{productId}")
+    public ArrayList<FeatureOptionDTO> getFeatureOptionsFromProduct(@RequestParam(defaultValue = "1") int page, @PathVariable int productId) {
+        return toDTOList(featureOptionService.findFeatureOptionsOfProduct(page, productId));
+    }
+
+    @GetMapping("/featureOptions/features/{featureId}")
+    public ArrayList<FeatureOptionDTO> getFeatureOptionsFromFeature(@RequestParam(defaultValue = "1") int page, @PathVariable int featureId) {
+        return toDTOList(featureOptionService.findFeatureOptionsOfFeature(page, featureId));
+    }
+
     private FeatureOptionDTO toDTO(FeatureOption featureOption) {
         int featureId = featureOption.getFeature().getId();
         FeatureOptionDTO featureOptionDTO = modelMapper.map(featureOption, FeatureOptionDTO.class);
@@ -62,5 +75,8 @@ public class FeatureOptionRestController {
         return featureOption;
     }
 
+    private ArrayList<FeatureOptionDTO> toDTOList(ArrayList<FeatureOption> featureOptions) {
+        return featureOptions.stream().map(this::toDTO).collect(Collectors.toCollection(ArrayList::new));
+    }
 
 }

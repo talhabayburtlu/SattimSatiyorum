@@ -51,6 +51,11 @@ public class FeatureRestController {
         return toDTO(feature);
     }
 
+    @GetMapping("/features/featureOptions/{featureOptionId}")
+    public FeatureDTO getFeatureFromFeatureOption(@PathVariable int featureOptionId) {
+        return toDTO(featureService.findFeatureFromFeatureOption(featureOptionId));
+    }
+
     private FeatureDTO toDTO(Feature feature) {
         ArrayList<Integer> featureOptionIds = feature.getFeatureOptions()
                 .stream().map(FeatureOption::getId).collect(Collectors.toCollection(ArrayList::new));

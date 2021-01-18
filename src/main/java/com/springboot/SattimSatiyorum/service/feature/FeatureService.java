@@ -10,4 +10,6 @@ public interface FeatureService {
 
     void deleteById(int featureId);
 
+    Feature findFeatureFromFeatureOption(int featureOptionId);
+
 }

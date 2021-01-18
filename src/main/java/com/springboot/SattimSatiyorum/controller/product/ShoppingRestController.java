@@ -2,6 +2,7 @@ package com.springboot.SattimSatiyorum.controller.product;
 
 import com.springboot.SattimSatiyorum.dto.product.ShoppingDTO;
 import com.springboot.SattimSatiyorum.entity.feature.FeatureOption;
+import com.springboot.SattimSatiyorum.entity.product.Product;
 import com.springboot.SattimSatiyorum.entity.product.Shopping;
 import com.springboot.SattimSatiyorum.service.feature.FeatureOptionService;
 import com.springboot.SattimSatiyorum.service.product.ShoppingService;
@@ -48,6 +49,12 @@ public class ShoppingRestController {
         return toDTO(shopping);
     }
 
+    @GetMapping("/shoppings")
+    public ArrayList<ShoppingDTO> getResidenceByHeader(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "") String subHeader) {
+        ArrayList<Product> products = shoppingService.findProductByHeader(page, "Shopping", subHeader);
+        return toDTOList(products.stream().map(p -> (Shopping) p).collect(Collectors.toCollection(ArrayList::new)));
+    }
+
     private ShoppingDTO toDTO(Shopping shopping) {
         ArrayList<Integer> featureOptions = shopping.getFeatureOptions()
                 .stream()
@@ -66,5 +73,9 @@ public class ShoppingRestController {
         Shopping shopping = modelMapper.map(shoppingDTO, Shopping.class);
         shopping.setFeatureOptions(featureOptions);
         return shopping;
+    }
+
+    private ArrayList<ShoppingDTO> toDTOList(ArrayList<Shopping> shoppings) {
+        return shoppings.stream().map(this::toDTO).collect(Collectors.toCollection(ArrayList::new));
     }
 }

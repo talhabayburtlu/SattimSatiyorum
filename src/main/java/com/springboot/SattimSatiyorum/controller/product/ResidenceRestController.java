@@ -2,6 +2,7 @@ package com.springboot.SattimSatiyorum.controller.product;
 
 import com.springboot.SattimSatiyorum.dto.product.ResidenceDTO;
 import com.springboot.SattimSatiyorum.entity.feature.FeatureOption;
+import com.springboot.SattimSatiyorum.entity.product.Product;
 import com.springboot.SattimSatiyorum.entity.product.Residence;
 import com.springboot.SattimSatiyorum.service.feature.FeatureOptionService;
 import com.springboot.SattimSatiyorum.service.product.ResidenceService;
@@ -48,6 +49,13 @@ public class ResidenceRestController {
         return toDTO(residence);
     }
 
+    @GetMapping("/residences")
+    public ArrayList<ResidenceDTO> getResidenceByHeader(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "") String subHeader) {
+        System.out.println(subHeader);
+        ArrayList<Product> products = residenceService.findProductByHeader(page, "Residence", subHeader);
+        return toDTOList(products.stream().map(p -> (Residence) p).collect(Collectors.toCollection(ArrayList::new)));
+    }
+
     private ResidenceDTO toDTO(Residence residence) {
         ArrayList<Integer> featureOptions = residence.getFeatureOptions()
                 .stream()
@@ -66,5 +74,9 @@ public class ResidenceRestController {
         Residence residence = modelMapper.map(residenceDTO, Residence.class);
         residence.setFeatureOptions(featureOptions);
         return residence;
+    }
+
+    private ArrayList<ResidenceDTO> toDTOList(ArrayList<Residence> residences) {
+        return residences.stream().map(this::toDTO).collect(Collectors.toCollection(ArrayList::new));
     }
 }
