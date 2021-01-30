@@ -51,7 +51,8 @@ public class VehicleRestController {
 
     @GetMapping("/vehicles")
     public ArrayList<VehicleDTO> getResidenceByHeader(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "") String subHeader) {
-        ArrayList<Product> products = vehicleService.findProductByHeader(page, "Shopping", subHeader);
+        System.out.println(subHeader);
+        ArrayList<Product> products = vehicleService.findProductByHeader(page, "Vehicle", subHeader);
         return toDTOList(products.stream().map(p -> (Vehicle) p).collect(Collectors.toCollection(ArrayList::new)));
     }
 

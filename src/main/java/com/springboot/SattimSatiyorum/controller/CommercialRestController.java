@@ -77,8 +77,7 @@ public class CommercialRestController {
 
 
     @GetMapping("/commercials")
-    public ArrayList<CommercialDTO> getActiveCommercials(@RequestParam(defaultValue = "1") int page,
-                                                         @RequestParam(value = "to") ArrayList<Integer> featureOptionIds) {
+    public ArrayList<CommercialDTO> getActiveCommercials(@RequestParam(defaultValue = "1") int page) {
         ArrayList<Commercial> commercials = commercialService.findActiveCommercials(page);
         return toDTOList(commercials);
     }

@@ -56,10 +56,12 @@ public class UserRestController {
     @GetMapping("/users/")
     public UserDTO getUserByUniques(@RequestParam(value = "mail", required = false) String mail,
                                     @RequestParam(value = "phoneNumber", required = false) String phoneNumber) {
+        User user;
         if (mail == null && phoneNumber == null)
             return null;
         else
-            return toDTO(userService.findUserWithUniques(mail, phoneNumber));
+            user = userService.findUserWithUniques(mail, phoneNumber);
+        return user == null ? null : toDTO(user);
     }
 
     private UserDTO toDTO(User user) {

@@ -13,7 +13,7 @@ public interface CommercialRepository extends JpaRepository<Commercial, Integer>
 
     @Transactional
     @Query(value = "SELECT c.* " +
-            "FROM User u inner join Commercial C on u.id = C.seller_id " +
+            "FROM User u inner join Commercial c on u.id = c.seller_id " +
             "WHERE u.id = :id AND c.is_active = 1 " +
             "ORDER BY c.id " +
             "LIMIT :start,:end ", nativeQuery = true)
@@ -21,7 +21,7 @@ public interface CommercialRepository extends JpaRepository<Commercial, Integer>
 
     @Transactional
     @Query(value = "SELECT c.* " +
-            "FROM User u inner join Commercial C on u.id = C.seller_id " +
+            "FROM User u inner join Commercial c on u.id = c.seller_id " +
             "WHERE u.id = :id AND c.is_active = 0 " +
             "ORDER BY c.id " +
             "LIMIT :start,:end ", nativeQuery = true)
@@ -30,7 +30,7 @@ public interface CommercialRepository extends JpaRepository<Commercial, Integer>
 
     @Transactional
     @Query(value = "SELECT c.* " +
-            "FROM User u inner join Commercial C on u.id = C.buyer_id " +
+            "FROM User u inner join Commercial c on u.id = c.buyer_id " +
             "WHERE u.id = :id AND c.is_active = 0 " +
             "ORDER BY c.id " +
             "LIMIT :start,:end ", nativeQuery = true)
@@ -72,7 +72,7 @@ public interface CommercialRepository extends JpaRepository<Commercial, Integer>
     @Transactional
     @Query(value = "SELECT c.* " +
             "FROM Commercial c " +
-            "WHERE c.is_urgent = 1" +
+            "WHERE c.is_urgent = 1 " +
             "GROUP BY c.id " +
             "LIMIT :start,:end ", nativeQuery = true)
     List<Commercial> findCommercialsByIsUrgent(@Param("start") int start, @Param("end") int end);
