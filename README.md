@@ -6,6 +6,9 @@ related to the product. A product can has many feature options which are related
 feature options, price,dates,urgent status. Users have a default package which limit their seller behaivour. There are other packages which increases the 
 limitation for that seller behaivour. 
 
+## API Documentation
+API documentation is available at http://localhost:8080/swagger-ui.html . It is also possible to interact with it by try it out option. This documentation is created by Swagger.
+
 ## Planned Features to Add
-* Spring security for accessing user and user related private information.
-* Creating a documentation for APIs with Swagger.
+* [ ] Spring security for accessing user and user related private information.
+* [X] Creating a documentation for APIs with Swagger.
