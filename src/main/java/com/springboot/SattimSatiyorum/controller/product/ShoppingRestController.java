@@ -8,6 +8,7 @@ import com.springboot.SattimSatiyorum.service.feature.FeatureOptionService;
 import com.springboot.SattimSatiyorum.service.product.ShoppingService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -43,8 +44,15 @@ public class ShoppingRestController {
     }
 
     @DeleteMapping("/shoppings/{shoppingId}")
-    public ShoppingDTO deleteShopping(@PathVariable int shoppingId) {
+    public ShoppingDTO deleteShopping(@PathVariable int shoppingId) throws Exception {
         Shopping shopping = (Shopping) shoppingService.findById(shoppingId);
+
+        org.springframework.security.core.userdetails.User securityUser =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!securityUser.getUsername().equals(shopping.getCommercial().getSeller().getMail()))
+            throw new Exception("You are not authorized to delete this commercial.");
+
         shoppingService.deleteById(shoppingId);
         return toDTO(shopping);
     }

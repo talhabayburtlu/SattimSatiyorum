@@ -27,10 +27,10 @@ public class Product {
     @Column(name = "type", insertable = false, updatable = false)
     private String type;
 
-    @OneToOne(mappedBy = "product")
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private Commercial commercial;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "Product_Feature_Options",
             joinColumns = {@JoinColumn(name = "product_id")},

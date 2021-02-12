@@ -8,6 +8,7 @@ import com.springboot.SattimSatiyorum.service.feature.FeatureOptionService;
 import com.springboot.SattimSatiyorum.service.product.VehicleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -43,8 +44,15 @@ public class VehicleRestController {
     }
 
     @DeleteMapping("/vehicles/{vehicleId}")
-    public VehicleDTO deleteVehicle(@PathVariable int vehicleId) {
+    public VehicleDTO deleteVehicle(@PathVariable int vehicleId) throws Exception {
         Vehicle vehicle = (Vehicle) vehicleService.findById(vehicleId);
+
+        org.springframework.security.core.userdetails.User securityUser =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!securityUser.getUsername().equals(vehicle.getCommercial().getSeller().getMail()))
+            throw new Exception("You are not authorized to delete this commercial.");
+
         vehicleService.deleteById(vehicleId);
         return toDTO(vehicle);
     }

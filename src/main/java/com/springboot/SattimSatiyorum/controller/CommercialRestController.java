@@ -10,6 +10,7 @@ import com.springboot.SattimSatiyorum.service.product.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -42,6 +43,12 @@ public class CommercialRestController {
 
     @PostMapping("/commercials")
     public CommercialDTO addCommercial(@RequestBody CommercialDTO commercialDTO) {
+        org.springframework.security.core.userdetails.User securityUser =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User seller = userService.findUserWithUniques(securityUser.getUsername(), null);
+        commercialDTO.setSellerId(seller.getId());
+
         Commercial commercial = this.toEntity(commercialDTO);
         commercial.setId(0);
         commercialService.save(commercial);
@@ -50,8 +57,15 @@ public class CommercialRestController {
     }
 
     @DeleteMapping("/commercials/{commercialId}")
-    public CommercialDTO deleteCommercial(@PathVariable int commercialId) {
+    public CommercialDTO deleteCommercial(@PathVariable int commercialId) throws Exception {
         Commercial commercial = commercialService.findById(commercialId); // throws error if does not exist
+
+        org.springframework.security.core.userdetails.User securityUser =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!securityUser.getUsername().equals(commercial.getSeller().getMail()))
+            throw new Exception("You are not authorized to delete this commercial.");
+
         commercialService.deleteById(commercialId);
 
         return toDTO(commercial);

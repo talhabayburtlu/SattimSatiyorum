@@ -8,6 +8,7 @@ public class UserDTO {
     private String surname;
     private int age;
     private String mail;
+    private String password;
     private String phoneNumber;
     private ArrayList<Integer> createdCommercialIds;
     private ArrayList<Integer> appliedCommercialIds;
@@ -51,6 +52,14 @@ public class UserDTO {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhoneNumber() {

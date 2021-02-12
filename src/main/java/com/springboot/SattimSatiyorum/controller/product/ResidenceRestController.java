@@ -8,6 +8,7 @@ import com.springboot.SattimSatiyorum.service.feature.FeatureOptionService;
 import com.springboot.SattimSatiyorum.service.product.ResidenceService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -43,8 +44,15 @@ public class ResidenceRestController {
     }
 
     @DeleteMapping("/residences/{residenceId}")
-    public ResidenceDTO deleteResidence(@PathVariable int residenceId) {
+    public ResidenceDTO deleteResidence(@PathVariable int residenceId) throws Exception {
         Residence residence = (Residence) residenceService.findById(residenceId);
+
+        org.springframework.security.core.userdetails.User securityUser =
+                (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!securityUser.getUsername().equals(residence.getCommercial().getSeller().getMail()))
+            throw new Exception("You are not authorized to delete this commercial.");
+
         residenceService.deleteById(residenceId);
         return toDTO(residence);
     }

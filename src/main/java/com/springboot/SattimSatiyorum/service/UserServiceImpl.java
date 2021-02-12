@@ -43,6 +43,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserWithUniques(String mail, String phoneNumber) {
-        return userRepository.findUserWithUniques(mail, phoneNumber);
+        User user = userRepository.findUserWithUniques(mail, phoneNumber);
+
+        if (user == null)
+            throw new RuntimeException("User with mail:" + mail + " or phone number:" + phoneNumber + " can't found.");
+
+        return user;
     }
 }
