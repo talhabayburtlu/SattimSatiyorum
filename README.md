@@ -10,5 +10,5 @@ limitation for that seller behaivour.
 API documentation is available at http://localhost:8080/swagger-ui.html . It is also possible to interact with it by try it out option. This documentation is created by Swagger.
 
 ## Planned Features to Add
-* [ ] Spring security for accessing user and user related private information.
+* [X] Spring security for accessing user and user related private information.
 * [X] Creating a documentation for APIs with Swagger.
